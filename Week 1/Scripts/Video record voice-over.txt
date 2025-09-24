@@ -1,0 +1,43 @@
+[cmd voice-over]
+Since Python is an interpreted language i.e., it is executed line by line rather than an entire script file being compiled at once, we can quickly test code with the Python interpreter in the terminal. A terminal is simply a command-line interface to interact with your computer that is most commonly used in Linux and MacOS. In Windows, you have either powershell or as you see on your screen here, command prompt. So, in your terminal/cmd window, all you need to do is to enter the command, 'python' to launch your python interpreter. Now, you can type lines of code in python and execute them as you go. Let's try the customary hello world program. Pressing the return key will execute the line and show you corresponding output... And that's our first official program in Python!
+
+---
+
+[VS Code voice-over]
+Though python is interpreted, you can also put your entire python program into a python script file to be executed as a whole. As many of you might already know, VS Code is a fully functional and powerful IDE that is popularly used for Python development among others. 
+
+[Show terminal window again briefly]
+It should be noted that the previous example of the terminal wouldn't qualify as an IDE because it lacks debugging tools and other functions like code completions that make an IDE a developer's most important tool. 
+
+[Back to VS Code]
+Let's see how we can run the hello world program again, but now from a python script. You can already see the IDE working well to recognise that the code being written is python and it starts syntax highlighting with code suggestions even before the file is saved as a python script. Now, let's actually save this as example.py to run it. Note that the file extension for python scripts is .py. To run this script, we need to use the terminal again. This being a capable IDE, we can access a commandprompt or powershell session from within VS Code itself. To run the script, make sure you are in the path where you saved your file and type 'python' followed by the name of the script file. There you go. Just to quickly show that all the lines get executed here, I'll print hello world two more times and re-run the script. 
+
+Great! 
+
+Now both these methods require installation of Python and other setup as a pre-requisites. So, for ease of getting started and an out-of-box experience, we are going to use Google Colab for the rest of this course.
+
+---
+
+[Google Colab voice-over]
+Alright, let's see this in action. To get started, open your web browser and navigate to colab.research.google.com. There you'll see a pop-up window with options to create or open a new Colab notebook environment. Click on 'Create new Notebook'.
+
+Welcome to your first colab notebook! You can save your notebook under a different name for your reference. Note that the colab notebook saves the file with the extension, '.ipynb'. An .ipynb file, short for Interactive Python Notebook, is a document created by Project Jupyter that allows you to combine runnable code, explanatory text, mathematical equations, and visualizations into a single, shareable file. It's essentially a computational storybook or a digital lab notebook.
+
+So, Colab is just a Jupyter notebook hosted in a Google cloud instance with the added benefit of better hardware and pre-installed machine learning packages.
+
+A colab environment is composed of blocks called cells. There are two primary types. Code cells like this one are for writing and executing Python code. Text/Markdown cells which can be added with the '+Text' button are for documentation and notes.
+
+Here's the classic hello world program yet again. To execute a code cell, you can either click the run icon on the left or use the keyboard shortcut, Ctrl + Enter to run the current cell.
+
+Notice how it is taking a while to execute? That's because the notebook connects to the cloud environment only on-demand. So, unless you run your first line of code or click the connect button on the top right, it will not connect you to the cloud server. Once connected though, you can see this status signified by the green checkmark along with some metrics such as your ram and storage. 
+
+With all the hello world programs we've been doing, you probably now have an idea that the print statement just grabs whatever you put into quotes and shows it as is as the output. print() itself is an in-built python function and the data that goes into the quotes is the argument which is of type string. If you don't understand what all that means, don't worry, this will be clear to you by the end of week 2. For now, all you need to know is that the print statement exists and how to use it. 
+
+The next basic aspect of programming is comments. Text typed with a # in front of it is considered a comment. These are ignored by the Python interpreter and is only there for us developers to read. They serve the purpose of providing more context to the code you write and is very important to use so that others won't have a hard time understanding your code. You can also have multi-line comments by using triple quotes, either single or double. Note that if you are using single quotes anywhere, you need to enclose the content within single quotes only and not mix-and-match between single and double quotes and vice-versa. 
+
+With that down, let's also quickly go over what markdown is and what you can do with text cells in a notebook. Markdown is a simple syntax to format text. For example, a single # here formats any text after it in the same line to a H1 size of heading which is the biggest size. Two hashes or H2 is one size smaller and so on till H6. Writing python code in text cells will not work. It is simply there to help you document your code better like fancy comments. You can find out more about all the different markdown syntax options from this link to an online cheat sheet.
+
+And that's it for your introduction to Python and the IDE! For the best experience from this video series, we encourage you to code along with the video and then practice with the challenge that will be described at the end of each video. Now as a bonus, you can find keyboard shortcuts to help you become a power user with Colab and master this IDE. 
+
+[Thank you slide]
+For your task, I encourage you to spin up a Colab instance if you haven't already and mess around with it. Thank you and happy coding!
