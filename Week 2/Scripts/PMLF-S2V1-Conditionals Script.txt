@@ -1,0 +1,58 @@
+[Slide 1 - Intro]
+Hello and welcome to week 2 of Python and ML Foundations! We are going to start this week by looking at conditionals in Python which will level up our code and enable decision making.
+
+[Slide 2 - Conditionals]
+Conditionals or conditional statements are also called control flow statements.
+
+[Slide 3 - Recap]
+Remember that in week 1 we learnt about the Boolean datatype and how that is used by different operators like the conditional, logical and membership operators? We saw how we can create conditional expressions that evaluates to a Boolean like in this example.
+
+[Slide 4 - What are conditionals?]
+Now with conditional statements or control flow statements, we can make decisions on what part of the code to execute based on these conditional expressions we evaluate to Boolean values. In short, they let your program make choices and control the 'flow' of execution. This is not exclusive to Python by the way, but is a very fundamental concept in programming. 
+
+[Slide 5 - The if-else statement]
+The primary way to use this feature in Python is to use the if-else statement. This is used for binary decision making i.e., you have one main condition with which you will decide what to do if the condition is True or False.
+
+[Slide 6 - if-else statement syntax]
+The syntax for the if-else statement is pretty straightforward. You have the if block first with your condition after the 'if' keyword followed by a colon. What I mean by 'block' is that this is a code block which signifies that it has its own scope. Variables declared inside a code block will not be valid outside of it. Also, notice that there is a tab-whitespace for the lines of code after the 'if' statement. The colon and indented lines signify a code block. The indentation is something that will be automatically applied by most IDEs including Colab after a colon. You will get an indentation error if this get's messed up and is important to keep in mind. 
+
+Now, if you don't plan to do anything with your code logic in the case that your condition evaluates to 'False', you can leave out the else block and continue with your code. The else block is there for you to perform actions where the if condition turns out to be false. It is not mandatory! Also note that the else statement does not take in a condition.
+
+[Slide 7 - if-else statement example]
+Here's a simple example of the if-else code blocks. Let's also see this coded in colab with a different scenario following one of the themes from last week.
+
+[Google Colab week 2 reference notebook - 1.1]
+A list of software that a system admin has allowed to be installed on a computer. Let's try checking if the given software to install here is in the allowed software list. Naturally, we use the if statement here. The conditional expression is a simple use of the membership operator, 'in' to check if it is in the list.
+
+If the software is not present in the list though, we can use the else block to print an error message for the user to contact their system admin. Note that when running this, the print statement in the else block did not execute because the condition in the if block turned out to be True with 'git' being in the list. Similarly, you will see that if the condition turns out to be False like here where no admin is going to let you install Minecraft, only the else block executes.
+
+[Slide 8 - The elif statement]
+Now not all decisions are either-or. Sometimes there needs to be multiple pathways that need to be followed. That's where 'elif' comes in play. 'elif' is short for 'else if' in Python and is another keyword. This is used if there are multiple conditions to be checked.
+
+[Slide 9 - elif statement syntax]
+The syntax for 'elif' is very similar to the 'if' statement. The only difference is the keyword itself and that it needs to come after an 'if' block. The 'else' block can follow your 'elif' statement(s) as usual.
+
+[Google Colab week 2 reference notebook - 1.2]
+Now in this code example, let's check if a browser is available to install and if so, the first browser in the list will be set as the default browser for the user. Since there are quite a few popular browser solutions out there and more than one in our list here, this is not a simple binary decision. This is definitely the job for the elif statement!
+
+We shall also now check how the elif block gets called by changing our admin list values. Again note that only the block for who's condition turns out to be True is getting executed. 
+
+[Slide 10 - The elif ladder]
+If it is not clear by now, you can add on as many elif blocks after your if block as you want as per what your program's logic demands. When you chain many conditional blocks like this, it is referred to as an 'elif ladder'. The program's execution will continue to check each condition down this ladder until it passes either one and will then exit this ladder after. It will ignore all other conditional blocks below in the chain or it will run to completion till the last else block if no condition evaluates to True.
+
+[Slide 11 - Remember: conditions can be chained]
+At this point, it is worth remembering that each conditional block's statement doesn't only have to have one condition but rather can have multiple conditions chained together as a conditional expression. How we put in our condition should be dictated by the logical flow of our code.
+
+[Google Colab week 2 reference notebook - 1.3]
+Now for a demo of the elif ladder, we'll create a set of conditions that identifies what a user's computer is configured for based on different combinations of software. As you can see, we are not sticking to just one conditional statement with one operator but an expression with multiple conditions chained within one block. 
+
+Since we have at least one browser that can be installed, our system is good for web browsing. Now, here's something neat. You can have your conditional blocks inside a conditional block and keep going for multiple levels. So, if a condition is contingent on another condition being true, you can NEST the second condition one level inside the first conditional block. These are called nested conditional statements. 
+
+[Slide 12 - The match-case statement]
+This is a relatively new addition to the Python language specification and was only introduced as a feature of the language in version 3.10 which released in 2021. This is another way to execute code blocks based on conditions but here, it is heavily based on pattern matching. Here's the general syntax. You will find that using the elif ladder will satisfy most of the scenarios where you need multiple conditional statements. Remember that Python was officially released in 1991 and didn't have this for decades. However, this is a welcome addition as most other established languages provide this functionality as well and it does have specific use cases. You can read more about how to use the match-case feature from the official python documentation and tutorial link here.
+
+[Slide 13 - Practice question]
+That brings us to the end of conditionals. Here is your customary end-of-video practice question. You need to write a program to check a score out of 100 and assign a letter grade to it. The mapping of score ranges to grades is given here. Consider using an elif ladder to solve this. Here's a pro tip: you won't need to check the score against the upper and lower limits of the range if you define your ladder in the right order.
+
+[Slide 14 - Outro]
+Thank you and see you in the next one!

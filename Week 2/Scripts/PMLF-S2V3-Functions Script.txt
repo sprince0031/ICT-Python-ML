@@ -1,0 +1,50 @@
+[Slide 1 - Intro]
+Hello and welcome back. In our last video, we mastered loops. Today we are continuing our journey through Python's fundamentals by 
+
+[Slide 2 - Functions]
+tackling the next important topic, functions. 
+
+[Slide 3 - What are functions?]
+A function is a reusable block of code that performs a specific task. Think of it like a recipe. You define it once and you use it over and over again. 
+
+[Slide 4 - Why use functions?]
+So why bother with functions? There are three key reasons. Reusability, which saves you from rewriting the code, organisation which helps you breakdown big problems and chunk it all up. And finally readability. This makes your code much easier for you and others to understand. 
+
+[Slide 5 - Anatomy of a function]
+So what constitutes to a function in Python? The syntax is straightforward. You use the def keyword followed by a function name, parenthesis, and a colon. The code that belongs to the function is indented underneath. To run it, you call the function by its name. Your parameters go inside the parentheses and you can return any data that you computed within your function using the return statement here.
+
+[Google Colab week 2 reference notebook - 3.1]
+Let's see how to create a simple function for starters. We define a function called 'list_sw' which prints out the list of all allowed software from our trusty admin list. Notice that every line in the function is indented at least once with another indent inside my for loop code block. We finally call the function by its name to execute the lines of code in it. Again, see that there is no indent with the function call. 
+
+[Slide 6 - Parameters vs Arguments]
+Now let's make our functions more useful. We can pass data into them using parameters. A parameter is a placeholder variable in the function definition. The actual value you pass in is called an argument. So in this example, the values 10 and 20 are the arguments that are passed into the function.
+
+[Slide 7 - The return statement]
+But what if we want to get data out of a function? For that we use the return statement. It sends a value back which can then be stored in a variable. 
+
+[Google Colab week 2 reference notebook - 3.2]
+For this next demo, we're going to see how to pass a parameter into a function and also get a return value from it. We are going to create a function that can use this dictionary of user specific allowed software lists and return a new list of all users who are allowed to download a particular software. The software name to check against is this single string type parameter 'sw_name' that the function takes as its argument. 
+
+But wait.. What is this different looking syntax with the for statement? Let's break it down. There are two concepts at play here one of which is very "pythonic" which is a nerdy way to say that Python is better (and iconic!). At least in terms of intuitive syntax. :)
+
+[Slide 8 - dict.items()]
+Dictionaries in Python have an inbuilt function called items() which just returns all the data in the dictionary as a list of key-value pair tuples. This is what we are looping over.
+
+[Google Colab week 2 reference notebook - 3.2]
+But how do we loop over a list of tuples with each having two values? That's where the concept of unpacking in Python comes in. 
+
+[Slide 9 - Unpacking in Python]
+Unpacking is a neat feature where Python automatically assigns values in a collection to the same number of comma-separated variables. Here, the key which was 'name' is assigned to the variable 'key' and the value, 'John' is assigned to the variable 'val' automatically.
+
+[Google Colab week 2 reference notebook - 3.2] 
+Now, back to our code at hand. The key which is the user name from 'user_allotted_software' is assigned to the 'user' variable and the corresponding software list is assigned to the 'sw_list' variable for every iteration of the loop.
+
+Continuing the function, we check if the software to search for i.e., our function's parameter, 'sw_name' is present in the user's software list. If it is, then the user is appended to our own 'user_list'. After the loop, the updated 'user_list' is returned.
+
+As you can see from the output of the next cell which calls the function with three different software, it works!
+
+[Slide 10 - Practice question]
+That's it for functions. Here's your practice question. You need to create a simple function to calculate the area of a rectangle. This function should take two parameters which are the 'height' and 'width' of the rectangle. After computing the area, return it. Print out your result.
+
+[Slide 11 - Outro]
+Thank you and happy coding!

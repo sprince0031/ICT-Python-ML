@@ -1,0 +1,54 @@
+[Slide 1 - Intro]
+Hi and welcome to another video in the Python and ML Foundations series. In this one, we're going to learn a concept that is usually overlooked when it comes to learning a new programming language but is something you will often need to know. Basic I/O
+
+[Slide 2 - I/O]
+I/O refers to input/output operations that you can do with your code. It is how you can interact with data outside of your code's context. In addition to the basic methods that will be highlighted in this video, there are other forms of I/O like connecting to the web via APIs, database queries, etc. but that is not in the scope of a beginner's tutorial to Python.
+
+[Slide 3 - Types of basic I/O]
+There are two basic ways to get data into our program. The first one is direct user input and the second is through file read operations. As for output, you probably know by now that we can simply print to the console using the print() function. Similar to the file read functionality, we can also write or append to files. 
+
+[Slide 4 - User input]
+We can ask for user input to the console using the 'input()' function. This in-built function takes an optional string parameter to display to the user. It will then pause execution of the program until the user has entered input to the console. Once entered, the input is returned as a string by this function.
+
+This is an important note because even if you expect an integer input, you will get the number input via this function as a string. So, you will need to do something called a 'typecast'. Type casting is when you convert one datatype to another. A string value of 42 for example can be type cast into an integer type by passing it to the int() function. Other basic datatypes have these same typecasting functions that can be used. 
+
+[Google Colab week 2 reference notebook - 4.1]
+Though Google Colab is a cloud environment, you do get access to the filesystem of the cloud server. You can see your local folder by clicking this folder icon on the left tool bar. We see here that we have a pre-populated folder of small famous datasets that are available out-of-the-box for every Colab instance. For the first user input demo, let's keep it simple and ask user input for a file path location that we shall use for our later demos.
+
+Notice that the code cell indicates that the code is still running. That is because the Python runtime instance is waiting for user input to proceed. Let's give the name of the 'sample_data' folder.
+
+The second part of this is to see that input() only returns a string datatype. Hence, the first attempt at adding two numbers fail as the input number of 12 was returned as a string. To overcome this, we can typecast using the int() function after which the arithmetic operation will work.
+
+[Slide 5 - Why use file I/O]
+Now for bigger data. Asking the user to type it all out is not practical. That's where file IO comes in. Everything in your program memory is temporary. File IO is how you save your results to persist and crucially for this course, how you read data sets.
+
+[Slide 6 - Best practice: with statement]
+The best practice for handling files is using the 'with' statement. It's your safety net. It automatically and safely closes the file for you, which is critical to prevent data loss. 
+
+Here is the syntax. You start with the 'with' keyword followed by a call to the open() function. The arguments to pass in are the path to the file and the mode of processing that file. This is followed by another keyword, 'as' and then a variable name for the file handler object that is returned by the open() function. The cool part about this is that you do all your file operations within this block and once you go out of it, 'with' will take care of closing the file read/write connection behind the scenes. So, there is no worry of accidentally forgetting to close your file handler. 
+
+[Slide 7 - File operation modes]
+There are three main modes when it comes to file operations. They are read, write and append denoted by 'r', 'w' and 'a' respectively. Let's see a demo of all three modes one-by-one starting with file read. 
+
+[Google Colab week 2 reference notebook - 4.2]
+Let's try and read one of the existing files in the 'sample_data' folder we saw earlier. We can use the save_path we got from our user input demo to pass the file path of the README file. We are also of course opening the file in read mode. 'f' here is the variable name assigned to the file handler object as is convention. The file handler in read mode has an inbuilt function read() which as you would have guessed, reads file contents. You can see that the contents of the file were read and printed out here.
+
+[Slide 7 - File operation modes]
+Now for the write mode operation, 
+
+[Google Colab week 2 reference notebook - 4.3]
+we will write to a file I created earlier called software_list.txt. Note that I have a title in the file with only a couple of items listed. The syntax for writing to a file is the same except for using 'w' as the mode argument. Just like the read function, file handler in write mode has a write function to write data to a file. Notice that there is an escape character, '\n' at the end of my string in the for loop. '\n' stands for a new-line character. So having this at the end of each line will make sure that each software list item is in a separate line. 
+
+Now that we have executed the cell, we can see that the file has been updated with the new list. However, note that previous contents have been overwritten. The title line is no longer there. 
+
+[Slide 7 - File operation modes]
+To avoid overwriting and to add on at the end of a file, we'll try the append mode.
+
+[Google Colab week 2 reference notebook - 4.2]
+This will be exactly like the write operation, except for the mode argument again. There you go, java has been added at the end.
+
+[Slide 8 - Practice question]
+And that covers the essentials of input and output operations. Now for the practice question, you will do something very similar to the demo. Create a list of your favourite movies and write them to a file called movies.txt. Read it back and print it one-by-one.
+
+[Slide 9 - Outro]
+Hopefully by now you will have started to feel confident with programming in Python. Do keep practicing for we will kick it up a notch next week with an introduction to the basics of classical machine learning and data analysis. Thank you and see you in the next one!
