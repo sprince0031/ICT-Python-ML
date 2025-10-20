@@ -1,0 +1,137 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "source": [
+    "# Week 4: A Beginner's Guide to Data Visualization\n",
+    "\n",
+    "Welcome! In this notebook, we'll explore the `california_housing_train.csv` dataset to find insights using Matplotlib and Seaborn. We'll learn to ask a question, prepare our data, and choose the right plot to answer it."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### 1. Setup: Imports and Data Loading\n",
+    "\n",
+    "First, let's import our libraries and load the dataset from Colab's `sample_data` folder. We'll also use `.head()` and `.info()` to get a feel for our data."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### 2. Plot 1: Histogram (One Numerical Variable)\n",
+    "\n",
+    "**Question:** What is the distribution of `median_house_value`?\n",
+    "**Tool:** Matplotlib's `plt.hist()`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "**Insight:** We can see a large number of houses in the 100k-200k range and a significant data cap at 500,000, which is a critical finding."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### 3. Plot 2: Scatter Plot (Two Numerical Variables)\n",
+    "\n",
+    "**Question:** Is there a relationship between `median_income` and `median_house_value`?\n",
+    "**Tool:** Matplotlib's `plt.scatter()`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "**Insight:** Yes, there's a clear positive correlation. As income increases, the median house value tends to increase."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### 4. Data Transform: Feature Engineering from Longitude\n",
+    "\n",
+    "**Goal:** We want to compare coastal vs. inland properties, but we only have `longitude`. We can create a new feature!\n",
+    "**Method:** We'll write a function that takes a longitude value and returns a category ('Coastal', 'Central', or 'Eastern'). Then we'll use `.apply()` to create our new `location_type` column."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### 5. Plot 3: Bar Plot (Categorical vs. Numerical)\n",
+    "\n",
+    "**Question:** Now that we have our new category, how does the *average* `median_house_value` compare across these locations?\n",
+    "**Tool:** Seaborn's `sns.barplot()`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "**Insight:** A fantastic insight! 'Coastal' properties are significantly more expensive on average than 'Central' or 'Eastern' properties. Our engineered feature worked!"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### 6. Plot 4: Box Plot (Distributions & Outliers)\n",
+    "\n",
+    "**Question:** The bar plot showed the average, but what about the *spread* and *outliers* in each location?\n",
+    "**Tool:** Seaborn's `sns.boxplot()`\n",
+    "**Advantage:** We can use our new feature directly with the full DataFrame."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "**Insight:** This is even better. We see that 'Coastal' not only has a higher average but also a much wider spread of prices. The dots are outliers—unusually expensive properties."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### 7. Plot 5: Heatmap (All Numerical Variables)\n",
+    "\n",
+    "**Question:** What are the strongest relationships across my *entire* dataset?\n",
+    "**Tool:** Seaborn's `sns.heatmap()`\n",
+    "**Data Transform:** We first create a **correlation matrix** using `.corr()`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "**Insight:** Looking at the `median_house_value` row, `median_income` is clearly the strongest predictor (0.69). This is a crucial step for feature selection in machine learning!"
+   ]
+  }
+ ],
+ "metadata": {},
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
