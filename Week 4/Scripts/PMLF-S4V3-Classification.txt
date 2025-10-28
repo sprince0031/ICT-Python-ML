@@ -94,11 +94,59 @@ A cool bonus with Logistic Regression is .predict_proba(). Instead of just guess
 
 Our final algorithm for today is the Support Vector Machine, or SVM. 
 
+This one is a bit more mathematically complex, but the core idea is very elegant. Remember our decision boundary? A Decision Tree chops up the space, and Logistic Regression finds a good probabilistic line.
+
+An SVM, on the other hand, tries to find the single best boundary.
+
+What does "best" mean? An SVM defines the best boundary as the one that creates the largest possible margin or "street" between the two classes.
+
+The model is "supported" by these closest data points. The ones the margin bumps up against. These are called the Support Vectors. They are the most important data points because they alone define the position and angle of the decision boundary.
+
+And what if the data can't be separated by a straight line? That's where SVMs get really powerful. They use a concept called the kernel trick. We don't need to know the complex math, just what it does: It cleverly projects our data into a higher dimension (like from 2D to 3D) where it can be separated by a simple plane, and then it projects that boundary back down.
+
+Back to Colab. SVMs, just like Logistic Regression, perform best when your features are scaled. Good news is we already created our X_train_scaled and X_test_scaled data, so we can use them directly.
+
+First, let's import our model.
+
+We're importing SVC, which stands for Support Vector Classifier.
+
+We create an instance of our model, svm_clf = SVC(kernel = 'linear', random_state=42)
+
+The most important hyperparameter here is the kernel. We're setting kernel="linear" to tell the SVM to find a straight-line boundary, just like in our animation. If we had more complex data, we could use a different kernel, like 'rbf', to find a complex, curvy boundary.
+
+To train the model, we do svm_clf.fit(X_train_scaled, y_train)
+
+Lets make the predictions using this model now.
+predictions_svm = svm_clf.predict(X_test_scaled)
+
+And print the accuracy score. And look at that! On this dataset, the accuracy is right up there with our Logistic Regression model, and again, better than our simple Decision Tree.
+
+--------------------------------------------------------
+
+And that's a wrap on out introduction to Classification!
+Lets quickly review. In this video, we learned how to build three different classification models:
+Decision trees are intuitive, flowchart-like models that are highly interpretable. But they can be prone to overfitting.
+
+Logistic Regression is a fast, simple and reliable baseline model that finds the optimal decision boundary by maximizing the margin.
 
 
+Based on their performance on the heart disease dataset we used, which one do you think is the best?
+-----------------------------------------------------------
+This brings up a key concept in machine learning: the No Free Lunch Theorem. This theorem essentially states that there is no single 'best' algorithm that works for every problem.
 
+An SVM might be a superstar on one dataset, while a well-tuned Decision Tree is better on another. That's why it's so important to understand how each algorithm works, so you can test, compare, and choose the right tool for your specific job.
 
+-------------------------------------------------------
 
+Alright, now it's your turn to build a model from scratch. Your challenge is to apply what we've learned to the diabetes dataset provided in the details
+The goal is to predict whether a patient has diabetes or not based on medical features.
+
+Your challenge is to build a LogisticRegression model and find its accuracy.
+
+Good luck with the task!
+
+That's it for this video, I'll see you in the next one.
+------------------------------------------------------
 
 
 
