@@ -88,7 +88,7 @@ You will notice that the numbers in the middle show tighter correlation but this
 Now pay attention to an inverse correlation that is actually interesting. Look at the median_house_value and latitude. You can see that they have an inverse correlation score of -0.15. So, to a degree, lower latitudes mean higher house value because it more likely means that the property is closer to the coast which would demand a premium.
 
 [Slide 15 - Practice Question]
-To finish off this video, here's your practice question. Take the same video game analysis dataset from Kaggle used in last week's challenge and answer the analytical questions that were posed. But this time, using plots to visualise the data. You have some hints that should help you choose plots for each question. I also encourage you to go through the Matplotlib and Seaborn documentation to explore more plots and possibilities to express stories and clues hidden in data. 
+To finish off this video, here's your practice question. Use the beginner friendly Palmer Penguins dataset and answer the analytical questions below with plots to visualise the data. You have some hints that should help you choose plots for each question. The companion notebook has utility code to download and load the dataset. I also encourage you to go through the Matplotlib and Seaborn documentation to explore more plots and possibilities to express stories and clues hidden in data. 
 
 [Slide 16 - Outro]
-Thank you and happy sleuthing!
+Thank you and happy coding!

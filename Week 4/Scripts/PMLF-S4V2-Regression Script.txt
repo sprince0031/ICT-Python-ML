@@ -2,7 +2,7 @@
 Hello and welcome back to video 2 of week 4. We just saw how to visualise data and effectively find patterns and relationships in it.
 
 [Slide 2 - Where we left off]
-From our target California housing dataset, we especially found a positive correlation between the median income and median housing value for each district or area in the state of California. Now, we're going to see if we can exploit this observed trend to predict the value of a house only using the median income for an area.
+From our target California housing dataset, we especially found a positive correlation between the median income and median housing value for each district or area in the state of California. Now, we're going to see if we can exploit this observed trend to predict the value of a house only using the median income.
 
 [Slide 3 - Regression intro]
 This is where one of the two main branches of supervised learning can be used. Regression.
@@ -20,7 +20,7 @@ Now, as mentioned earlier there are two main types of supervised learning. The m
 Regression is when you try to find a single "best-fit" line that can approximate a trend or pattern in data. Pay attention to the sample representation on screen here with 5 data points denoted by the X's. 
 
 [Slide 8 - Linear regression]
-The simplest regression model you can try to "fit" to a dataset is a simple linear regression model. The target or output feature, y^ is predicted for an input feature, x mapped on the straight regression line described by the classic straight line equation, y^ = wx + b. Here, weight w, is the slope of the line which describes the angle of the line. The bias, b is a constant term which determines the positioning of the line. This makes it such that the line does not always have to pass through the origin.
+The simplest regression model you can try to "fit" to a dataset is a simple linear regression model. The target or output feature, y^ is predicted for an input feature, x mapped on the straight regression line described by the classic straight line equation, y^ = wx + b. Here, weight w, is the slope of the line which describes its angle. The bias, b determines the positioning of the line. This makes it such that the line does not always have to pass through the origin.
 
 [Slide 9 - How does it "learn"?]
 The model tries to optimise the weight and bias terms of the line such that it best fits the pattern of data. It optimises by measuring the difference between the actual values, y and the predictions, y^. This is called the error or "residual". It then adjusts the line such that the errors are minimised for all data points. 
@@ -66,7 +66,7 @@ Take note that we need to sort the test data to ensure we will have a straight l
 The fact that the model is quite a bit off on average will not surprise you now as you can see the data is quite spread out over a wide margin.
 
 [Slide 13 - Practice Question]
-As for the customary end-of-video question, continue analysing the video game sales dataset from Kaggle. But this time, using plots to visualise the data. You have some hints that should help you choose plots for each question. I also encourage you to go through the Matplotlib and Seaborn documentation to explore more plots and possibilities to express stories and clues hidden in data. 
+As for the customary end-of-video question, let's continue working with the Palmer Penguins dataset. If you did your task for the last video, you would know by now that there is a correlation between the flipper length and body mass features of a Penguin. Your task is to build a linear regression model using Scikit-learn to try and predict the body mass of a Penguin using only the flipper length. Again, the utility code cell to download and load the dataset from Kaggle is available at the top of this week's companion notebook. 
 
 [Slide 16 - Outro]
 Thank you and see you in the next video.
