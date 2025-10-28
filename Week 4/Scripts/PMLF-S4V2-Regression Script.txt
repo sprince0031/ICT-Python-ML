@@ -1,0 +1,72 @@
+[Slide 1 - Intro]
+Hello and welcome back to video 2 of week 4. We just saw how to visualise data and effectively find patterns and relationships in it.
+
+[Slide 2 - Where we left off]
+From our target California housing dataset, we especially found a positive correlation between the median income and median housing value for each district or area in the state of California. Now, we're going to see if we can exploit this observed trend to predict the value of a house only using the median income for an area.
+
+[Slide 3 - Regression intro]
+This is where one of the two main branches of supervised learning can be used. Regression.
+
+[Slide 4 - Supervised learning: recap]
+Here's a quick recap of what supervised learning is from last week's introduction and overview to AI and ML.
+
+[Slide 5 - Supervised learning]
+In Supervised Learning, the algorithm is given a dataset where the 'right answers' are already known. We call this labeled data. For example, we might feed it thousands of images, each one labeled as either 'cat' or 'dog.' The goal is for the model to learn the relationship, so that it can correctly label a new, unseen image. This is used for tasks like spam detection and predicting house prices.
+
+[Slide 6 - Supervised learning: regression]
+Now, as mentioned earlier there are two main types of supervised learning. The method that tries to predict a continuous numerical value from other continuous numerical features is called regression which is what we're going to dive into now. You will learn what classification is and a few different classification algorithms in the next video.
+
+[Slide 7 - What is regression?]
+Regression is when you try to find a single "best-fit" line that can approximate a trend or pattern in data. Pay attention to the sample representation on screen here with 5 data points denoted by the X's. 
+
+[Slide 8 - Linear regression]
+The simplest regression model you can try to "fit" to a dataset is a simple linear regression model. The target or output feature, y^ is predicted for an input feature, x mapped on the straight regression line described by the classic straight line equation, y^ = wx + b. Here, weight w, is the slope of the line which describes the angle of the line. The bias, b is a constant term which determines the positioning of the line. This makes it such that the line does not always have to pass through the origin.
+
+[Slide 9 - How does it "learn"?]
+The model tries to optimise the weight and bias terms of the line such that it best fits the pattern of data. It optimises by measuring the difference between the actual values, y and the predictions, y^. This is called the error or "residual". It then adjusts the line such that the errors are minimised for all data points. 
+
+[Slide 10 - Mean Squared Error]
+Rather than adjusting the line for each and every data point individually, the algorithm measures the total error by using what we commonly call in machine learning, a "loss function". The loss function can vary based on the model used and requirements of the data. Here, we usually use a loss function called "mean squared error". 
+
+Just like the name suggests, it is a three step process. First, it takes the measured errors for all data points and then squares them. Why? This is to penalise larger errors heavily compared to the smaller ones. You can visually see here that the larger error values have a larger area when squared. Squaring also ensures that there are no negative values for the data points that lie below the regression line.
+
+The final step is to find the mean of all the squared values by summing them up and dividing by the total number of data points. Consider this final MSE value being represented by the bar to the right here. Now as we adjust the orientation of the line, we can see that the MSE varies. The model finally lands at a regression line with the least mean squared error value as the "best-fit" line for the data.
+
+[Slide 11 - Scikit-learn]
+Now, for practical implementation in Python, we have a very nifty and widely-used library called Scikit-learn. This library will be our goto when it comes to using classical machine learning algorithms such as linear regression and other classification models we will see later. It also provides many methods for evaluation of your models which really makes it an essential part of your data science and ML toolkit.
+
+[Google Colab week 4 reference notebook - 2. Regression]
+Okay, let's finally see how to implement a simple regression model to predict housing prices based on median income using the California housing dataset. Sklearn has a few sub-modules in it with each providing many relevant functions and models. For a general ML workflow, you will need to import train_test_split, more on that in a bit, the ML model which is LinearRegression here and of course, metrics to be able to evaluate your model. Note that the actual name of the python package in code is "sklearn" and not scikit-learn.
+
+As usual, we're going to read the california_housing_train csv file into a pandas dataframe. We're also going to filter out entries that are 500k plus to take care of the data cap as discovered in the previous video. 
+
+[Google Colab week 4 reference notebook - 2.1 Preparing dataset]
+Now, to prepare our data to be used with scikit-learn, we need 'x' which is our feature or input and y, our target. An important note here is that x has to be a 2D dataframe because we can create a more complex regression model with multiple features if we want to. But, here we are sticking with just one feature, 'median_income'. So, here, use double square brackets. Y of course will be 'median_house_value' which can be a 1D series that is, you'll be predicting only one value here.
+
+[Slide 12 - Train-test split]
+This next step is going to be crucial and very fundamental to machine learning. When training or building any ML model, you always need to set aside a portion of your dataset often called your test data, purely to test your model. The data on which you train your model is naturally called your train data. You would have noticed that the csv file's name for this dataset had "train" in its name. If you look at your sample_datasets folder, you will also see a california_housing_test csv file. This means that a separate test dataset is available for you to test on and you don't necessarily need to do this split. However, we will use the training dataset as the sole dataset and do this split for demonstration purposes as most real-world datasets will not be curated this way. 
+
+[Google Colab week 4 reference notebook - 2.2 Train-test split]
+Now, to do the split, we call the train_test_split method from scikit-learn that we imported and pass in 4 arguments: the input features x, target y, test_size which determines what percentage of the dataset to be set aside for testing which is 20% here and finally random_state which is a seed value to help you reproduce your split. As you can see on the left, the function returns dataframes, 2 each of x and y for training and testing.
+
+[Google Colab week 4 reference notebook - 2.3 Implementing Linear Regression]
+With that done, we finally can implement a regression model. We create an instance of LinearRegression which we imported and save it in the variable, "model". Then all we need to do is to call the fit() method by passing in the X_train and y_train dataframes as arguments. This one line of code finds the best weight and bias by minimising MSE.
+
+[Google Colab week 4 reference notebook - 2.4 Checking slope and intercept of model]
+Our model is now trained and has learned the relationship. We can even check the final slope and intercept values as shown here.
+
+[Google Colab week 4 reference notebook - 2.5 Evaluating the model]
+To evaluate the effectiveness of the model, we can now check how the regression model fairs on the test set. We do this by calculating the MSE of the model on the test set. We first make a list of predictions for all the median income values in our test set by calling the predict() method of our LinearRegression model. The mean_squared_error() method from sklearn's metrics sub-module takes in the actual values we have in y_test and calculates the MSE by checking against y_predictions we just got. The value is absurdly high and not really interpretable for us though. That is because this is a squared value.
+
+To make this more meaningful, we take the square root of this value. This metric is called root mean squared error or RMSE. This value is 74,917 which means on average, our regression model is off by this 74,917 dollars when it comes to predicting housing prices with just the one feature of median income.
+
+[Google Colab week 4 reference notebook - 2.6 Plotting regression line on test data]
+Take note that we need to sort the test data to ensure we will have a straight line for predictions when we plot it. We use the predict() method again on the sorted feature data and there you have it! This is the single best regression line that best describes the relationship between median income and median house value. 
+
+The fact that the model is quite a bit off on average will not surprise you now as you can see the data is quite spread out over a wide margin.
+
+[Slide 13 - Practice Question]
+As for the customary end-of-video question, continue analysing the video game sales dataset from Kaggle. But this time, using plots to visualise the data. You have some hints that should help you choose plots for each question. I also encourage you to go through the Matplotlib and Seaborn documentation to explore more plots and possibilities to express stories and clues hidden in data. 
+
+[Slide 16 - Outro]
+Thank you and see you in the next video.

@@ -60,7 +60,7 @@ Now our DataFrame is ready for Seaborn.
 [Slide 12 - Bar Plot]
 Now, let's ask: 'What's the average house value in each age group?' With Matplotlib, we'd have to use groupby() to calculate this ourselves. With Seaborn, we don't.
 
-[Google Colab week 2 reference notebook - 1.3]
+[Google Colab week 4 reference notebook - 1.3]
 Watch this. I just call barplot() function from Seaborn. I pass the entire DataFrame to the data argument. Then I just tell it x='age_category' and y='median_house_value'. That's it. Seaborn does the groupby and averaging for us, automatically in one line!
 
 From this plot, we see that the average valuation of a house in the three age categories is pretty close with the older houses skewing slightly higher.
@@ -70,7 +70,7 @@ That simplicity is even more powerful for complex plots. This next plot visualis
 
 There is also another implicit calculation here called Inter-Quartile Range (IQR). This is to help identify the outliers. Basically a data point is an outlier if they fall below or above 1.5 times the IQR.
 
-[Google Colab week 2 reference notebook - 1.4]
+[Google Colab week 4 reference notebook - 1.4]
 Here's the output from using the Pandas describe() function on just the median_house_value column. We can visualise this in one line: sns.boxplot(). We pass the same arguments. Seaborn automatically calculates the median, the quartiles, and all the outliers for each category.
 
 This gives us a much deeper insight. We can see the 'Historic' districts have the widest price spread. Most newer houses seem to not be valued much more than 400k while the older houses don't have a lot of outliers even when close to the 500k range.
@@ -78,7 +78,7 @@ This gives us a much deeper insight. We can see the 'Historic' districts have th
 [Slide 14 - Heatmap]
 Finally, the Heatmap. This is used to visualize a Correlation Matrix to see how all our numerical variables relate to each other. A corelation matrix measures the degree of direct or inverse correlation between two numerical continuous variables. The values in the matrix range from -1 to 1. Negative and positive values mean inverse and direct correlation respectively. The leading diagonal will always be 1 because it is the same feature being compared.
 
-[Google Colab week 2 reference notebook - 1.4]
+[Google Colab week 4 reference notebook - 1.5]
 First, we use Pandas to create the correlation matrix with the corr() function. Then, we pass this matrix to Seaborn's sns.heatmap(). The parameter annot tells it to show annotations which will be the correlations here and cmap defines which matplotlib colourmap theme to use. fmt is the format parameter which we can use to show floats rounded to 2 decimal places, similar to how we display this in 'f' strings. 
 
 Here's our big picture. We can instantly scan the median_house_value row and see the strongest correlation is median_income at 0.65. We also found this from scatter plot earlier.
