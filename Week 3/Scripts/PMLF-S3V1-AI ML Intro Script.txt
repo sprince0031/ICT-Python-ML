@@ -1,0 +1,37 @@
+1. Hello and welcome back to Python and Machine Learning Foundations. In our previous videos, we focused on Python fundamentals. Today, we're taking a step back to understand the bigger picture of AI and Machine Learning. We'll learn about its early concepts to some of its recent triumphs, clarifying key terms, and lay the conceptual groundwork for everything we'll build in this course.
+--------------------------------------------------------------------
+2. We all certainly know the power of Generative AI and its efficiency in creating text, images, and even code. But did you know that the same underlying principles are also revolutionizing fundamental science?
+-------------------------------------------------------------------
+3. In 2024, the Nobel Prize in Chemistry was awarded to Demis Hassabis and John Jumper for the creation of AlphaFold, an AI model that can predict the 3D structure of proteins. For decades, this was a grand challenge.
+--------------------------------------------------------------------
+4. In the very same year, the Nobel Prize in Physics was awarded to John Hopfield and Geoffrey Hinton for their foundational work in Artificial neural networks. Hopfield developed networks that could store and retrieve memories, and Hinton created learning algorithms that allowed these networks to discover patterns on their own. These two prizes, awarded in the same year, show that AI is not just a buzzword.
+-----------------------------------------------------------------------
+5. Let's take a look at AI in the 1950s, which is now called 'Good Old-Fashioned AI,'. This first wave was not about learning from data. Instead, it was about encoding human knowledge and logic into machines with explicit rules. Think of it as a massive set of 'if-then' statements. ELIZA is one example. It is a computer program that simulates conversation using pattern matching and substitution methodology. It was designed to mimic a psychotherapist by rephrasing user's input as questions and statements, giving the illusion of understanding.
+---------------------------------------------------------------------------
+6. The initial progress led to great excitement, but the complexity of real-world problems proved immense. The promises were bigger than the technology of the day could deliver, leading to periods of reduced funding and interest known as 'AI Winters.' But during these quiet periods, a new idea was taking root. What if, instead of programming rules, we could create systems that learn the rules themselves from data? This was the birth of Machine Learning.
+---------------------------------------------------------------------------
+7. Then, around the 2010s, three things came together: massive amounts of data from the internet, powerful new computer hardware, and key algorithmic breakthroughs. This sparked the Deep Learning revolution. Deep Learning is a subfield of Machine Learning that uses structures called neural networks, these inspired by the human brain, and they are capable of finding complex patterns in data. This is the technology behind AlphaFold, self-driving cars, and voice assistants.
+------------------------------------------------------------------------
+8. The terms AI, Machine Learning and Deep Learning are often used interchangeably, but they have a clear relationship.
+
+* Artificial Intelligence is the broadest concept. It's any technique that enables a computer to mimic human intelligence. This includes the rule-based systems like Eliza.
+
+* Machine Learning is a subset of AI. It focuses specifically on algorithms that learn patterns from data without being explicitly programmed.
+
+* Deep Learning is a subset of Machine Learning that uses deep neural networks to solve complex problems. So, all Deep Learning is Machine Learning, and all Machine Learning is AI.
+------------------------------
+9. Now that we've defined our terms, let's explore the three main ways in which machines learn. In Machine Learning, you will almost always be working with one of these three paradigms: Supervised, Unsupervised, or Reinforcement Learning.
+-------------------------------------
+10. In Supervised Learning, the algorithm is given a dataset where the 'right answers' are already known. We call this labeled data. For example, we might feed it thousands of images, each one labeled as either 'cat' or 'dog.' The goal is for the model to learn the relationship, so that it can correctly label a new, unseen image. This is used for tasks like spam detection and predicting house prices.
+------------------------------------------
+11. Unsupervised Learning is learning without labeled data. Here, we give the algorithm unlabeled data and ask it to find hidden patterns or structures on its own. For instance, you might give it data on all your customers and ask it to find natural groupings or segments of similar customers. This is incredibly useful for tasks like customer segmentation and anomaly detection.
+----------------------------------------------
+12. Reinforcement Learning is about learning through trial and error. We place an 'agent' in an environment. The agent takes actions, and for each action, it receives a reward or a penalty. The goal is to learn the best sequence of actions, that is, the policy that maximizes its total reward over time. This is the paradigm used to train AIs to play complex games like Go and Chess, and it's a key component in robotics and self-driving cars.
+-------------------------------------------------------------
+13. And that concludes our journey through the landscape of AI and ML. We've seen how the field evolved from hard-coded rules to complex, self-learning systems. We've clarified the relationship between AI, Machine Learning, and Deep Learning, and we've introduced the three core learning paradigms. Understanding these concepts is the first big step on your path. In our next video, we'll begin to explore the powerful Python libraries like NumPy and Pandas that allow us to implement these ideas in code.
+
+Thanks for watching, and I'll see you in the next one.
+
+
+
+

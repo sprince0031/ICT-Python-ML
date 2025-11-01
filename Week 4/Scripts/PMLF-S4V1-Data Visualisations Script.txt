@@ -1,0 +1,94 @@
+[Slide 1 - Intro]
+Hello and welcome to Week 4 of our Python and Machine Learning Foundations series. So far, we've learned how to handle data. Today, we're going to learn how to see it.
+
+[Slide 2 - Data Visualisation]
+This is 'A Beginner's Guide to Data Visualization'.
+
+[Slide 3 - Why Visualise?]
+Now, why do we bother with visualisation? Because our brains are naturally wired for images. Staring at a spreadsheet of 20,000 odd rows is useless. A visual plot can instantly show us distributions and skew, find patterns and relationships, and spot outliers and anomalies. It is the most important first step in any data project.
+
+[Slide 4 - Our Toolkit]
+To do this, we'll use a toolkit of three libraries. We already know Pandas, which we'll use to load and transform our data. Our two new tools are Matplotlib which is the "foundation" of all plotting in Python, and Seaborn, which is built on top of Matplotlib and helps us create beautiful statistical plots with very little code. 
+
+[Slide 5 - Matplotlib Intro]
+Okay, let's start with our first tool: Matplotlib
+
+[Slide 6 - Matplotlib]
+Matplotlib is the "grandfather" of Python plotting. It gives you detailed, low-level control over every part of your figure. We use it via the pyplot interface, which we import as plt. Its syntax is 'stateful' which means you build a plot layer by layer. You'll call one function to make the plot, another to add a title, another for a label, and then plt.show() at the end to display everything you've built."
+
+[Google Colab week 4 reference notebook - Intro]
+For our demos in this video, we will be exploring the California housing dataset provided by Google Colab as we did last week. But, we will go through different plots to see how we can gain better insight into the data.
+
+To start off, we have imported the three main libraries here and assigned convenient aliases as per convention. We can see how Seaborn is being used right away where we can set consistent themes for our plots with the set_style() method. The 'whitegrid' theme gives us a clean grid for ease of inference of our plots. You can explore more options to tweak how your plots look from the documentation linked here.
+
+Again, just like last time, our dataset is read as a CSV file from the sample_datasets folder and loaded into a Pandas DataFrame, `df`.
+
+[Slide 7 - Histogram]
+Let's start with a Matplotlib basic. Question: 'What is the distribution of median_house_value?' For this, a Histogram is the perfect tool. It shows us the spread and distribution of data for a single numerical feature or variable.
+
+[Google Colab week 4 reference notebook - 1.1]
+Using matplotlib, I'll type plt.hist() and pass it our data, which is the median_house_value column from our DataFrame. Notice how we pass the actual data array here. Then, we add layers. First, plt.title() which defines the display title for the plot, a plt.xlabel() to label the x-axis, and plt.ylabel() for the y-axis. Finally, plt.show() to display our final histogram.
+
+To make the plot a little bigger, we can use the figure() function with the figsize= parameter taking an input tuple of width and height values.
+
+And there we go. Our first insight! We see most houses are in the 100k-200k range and a big spike at 500,000. That's odd that there are so many more houses at the 500k mark. Let's investigate this spike by filtering the DataFrame for houses with median value greater than 500k and see some stats.
+
+Aha! Notice that there is no variation in value here. This means there is a big data cap past the 500k mark which is the reason for this skew. These additional points of data only add value by telling us that there are a lot more houses in California valued higher than 500k but we don't have any distribution for that. So, we'll filter this out and limit our scope to houses valued up to and including $500,000.
+
+[Slide 8 - Scatterplot]
+Let's do one more with Matplotlib. Here's another question: 'How do median_income and median_house_value relate?' For this, a Scatter Plot is a great choice as it shows the relationship between two numerical features.  
+
+[Google Colab week 4 reference notebook - 1.2]
+Now, we call plt.scatter() and pass the x-data, 'median_income', and the y-data, 'median_house_value'. I'll add alpha=0.1 to make the dots transparent. This will help us see how the data points overlap. We build it layer by layer again.
+
+We can immediately see that there is a clear positive relationship or correlation here. This tells us that if the median income is greater, then the house valuation also tends to increase which is quite intuitive.
+
+[Slide 9 - Seaborn Intro]
+Now, Matplotlib is great for control, but it can be a lot of code for complex plots. This is where Seaborn comes in.
+
+[Slide 10 - Seaborn]
+Seaborn is built on top of Matplotlib and has a 'high-level' interface. Its main superpower is that it is 'DataFrame-aware'. This is a key difference. Instead of passing data arrays like plt.plot(df['col']), you pass the entire DataFrame to the data= argument, and then just use strings for the x= and y= arguments. Let's see why this is so much more easier.
+
+[Slide 11 - Recap: Feature Engineering]
+First, to demonstrate Seaborn's best features, we need a categorical variable. We'll do some Feature Engineering to create one and see if we can gain additional insight. To recap feature engineering, it is simply using two or more existing features or variables to create a new feature. For our example, we'll 'bucket' the housing_median_age into 'New', 'Established', and 'Historic' categories.
+
+[Google Colab week 2 reference notebook - feature engineering]
+Here is a simple Python function to classify the age. I'll use .apply() method to create our new age_category column. The apply() method simply applies any custom function across an axis on the DataFrame. The syntax can be a bit confusing at first because there is no parenthesis in the function call. That's because the function itself is being passed as an argument to apply(). Pandas then works behind-the-scenes to pass each numerical value from the 'median_age' column of the DataFrame to the classify_age() function. The categorical value according to the conditions is returned and saved along the same row in the new column, 'age_category'.
+
+Now our DataFrame is ready for Seaborn.
+
+[Slide 12 - Bar Plot]
+Now, let's ask: 'What's the average house value in each age group?' With Matplotlib, we'd have to use groupby() to calculate this ourselves. With Seaborn, we don't.
+
+[Google Colab week 4 reference notebook - 1.3]
+Watch this. I just call barplot() function from Seaborn. I pass the entire DataFrame to the data argument. Then I just tell it x='age_category' and y='median_house_value'. That's it. Seaborn does the groupby and averaging for us, automatically in one line!
+
+From this plot, we see that the average valuation of a house in the three age categories is pretty close with the older houses skewing slightly higher.
+
+[Slide 13 - Box Plot]
+That simplicity is even more powerful for complex plots. This next plot visualises the stats from the output of df.describe(). The box plot. This plot shows the spread of data and shows outliers. The five key numbers here are the minimum, first quartile, median, third quartile and maximum. Quartile is similar to percentile except that it is for the 25th, 50th which is the median and the 75th percentile. They represent the value below which there is 25%, 50% and 75% of all data respectively. These lines or 'whiskers' represent the minimum and maximum values.
+
+There is also another implicit calculation here called Inter-Quartile Range (IQR). This is to help identify the outliers. Basically a data point is an outlier if they fall below or above 1.5 times the IQR.
+
+[Google Colab week 4 reference notebook - 1.4]
+Here's the output from using the Pandas describe() function on just the median_house_value column. We can visualise this in one line: sns.boxplot(). We pass the same arguments. Seaborn automatically calculates the median, the quartiles, and all the outliers for each category.
+
+This gives us a much deeper insight. We can see the 'Historic' districts have the widest price spread. Most newer houses seem to not be valued much more than 400k while the older houses don't have a lot of outliers even when close to the 500k range.
+
+[Slide 14 - Heatmap]
+Finally, the Heatmap. This is used to visualize a Correlation Matrix to see how all our numerical variables relate to each other. A corelation matrix measures the degree of direct or inverse correlation between two numerical continuous variables. The values in the matrix range from -1 to 1. Negative and positive values mean inverse and direct correlation respectively. The leading diagonal will always be 1 because it is the same feature being compared.
+
+[Google Colab week 4 reference notebook - 1.5]
+First, we use Pandas to create the correlation matrix with the corr() function. Then, we pass this matrix to Seaborn's sns.heatmap(). The parameter annot tells it to show annotations which will be the correlations here and cmap defines which matplotlib colourmap theme to use. fmt is the format parameter which we can use to show floats rounded to 2 decimal places, similar to how we display this in 'f' strings. 
+
+Here's our big picture. We can instantly scan the median_house_value row and see the strongest correlation is median_income at 0.65. We also found this from scatter plot earlier.
+
+You will notice that the numbers in the middle show tighter correlation but this doesn't always mean surprising analytical insight. For example, the features of households and total_bedrooms have the highest correlation at 0.98. But naturally, more households means more bed rooms. So, in such cases these features become redundant measures of scale.
+
+Now pay attention to an inverse correlation that is actually interesting. Look at the median_house_value and latitude. You can see that they have an inverse correlation score of -0.15. So, to a degree, lower latitudes mean higher house value because it more likely means that the property is closer to the coast which would demand a premium.
+
+[Slide 15 - Practice Question]
+To finish off this video, here's your practice question. Use the beginner friendly Palmer Penguins dataset and answer the analytical questions below with plots to visualise the data. You have some hints that should help you choose plots for each question. The companion notebook has utility code to download and load the dataset. I also encourage you to go through the Matplotlib and Seaborn documentation to explore more plots and possibilities to express stories and clues hidden in data. 
+
+[Slide 16 - Outro]
+Thank you and happy coding!
