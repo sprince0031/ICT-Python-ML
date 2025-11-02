@@ -1,0 +1,64 @@
+1. Hello and welcome back to Python and Machine Learning Foundations. In the last video, we explored the architecture of a Multi-Layer Perceptron. We saw the specific MLP that solves the XOR problem. But their real power is in how they learn the correct weights and biases with just the data. 
+
+Today, we answer the most important question: How does a neural network learn the right weights all by itself? The answer is a beautiful process of organized trial and error. Let's find out how it works.
+-----------------------------------------------------------------------------
+2. Previously, we used a standard machine learning workflow. It looks like this:
+
+We've always said that in this 'Train Model' step, the model 'learns' from the data. Well, today, we are going to double-click on that .fit() box and 'zoom in' to see the entire process that's been hiding inside.
+
+The training process is a loop. It's a cycle of a 'guess,' a 'check,' and a 'correction,' repeated over and over. 
+--------------------------------------------------------------------------------
+3. When we first create our neural network, it's a blank slate. 
+The first thing that happens is Weight Initialization. The network is filled with small, random numbers. The model has no idea which connections are important. Its first guess is going to be completely random... and very, very wrong.
+
+Next, the model needs to practice. The training process is divided into Epochs. One epoch is one full pass of the model through the entire training dataset. A model might be trained for 10 epochs, 100 epochs, or thousands of epochs, practicing on the data over and over. So, what happens inside one epoch?
+-----------------------------------------------------------------
+4. The model takes a batch of data from the training set. It performs a Forward Pass. The input flows forward through the network, from the input layer, through the hidden layers, to the output layer. The model multiplies it by the weights, adds the biases, applies the activation functions, and finally, makes a guess.
+
+The model's guess is then compared to the actual right answer. We use a Loss Function to calculate a score that measures how wrong the model's guess was. You already know some of these! For regression, we would use Mean Squared Error (MSE). For classification, we use a function like 'Cross-Entropy Loss', more on that later. Either way, the goal is simple: a high loss means a very bad guess. A low loss means a good guess. The model's objective is to get this loss as close to zero as possible.
+-----------------------------------------------------------------
+5. So, at this point, the model has a number that tells it 'you are 75% wrong.' Now what?
+
+The model needs to lower its loss. It does this using an algorithm called Gradient Descent.
+
+Lets visualize this on a 2D plot. Here, the Y axis represents the loss and X-axis is the value of one parameter in the network, say, w1. The minimum of this curve is the optimal value for w1.
+
+-----------------------------------------------------------------------------------------
+6. The model starts at a random initial weight, which places it at some arbitrary point on this loss curve. To find the minimum, we use calculus. We compute the gradient of the loss with respect to w1. The gradient is simply the derivative, or the slope of the loss curve at that point.
+
+This gradient is a vector that points in the direction of the steepest ascent, or uphill. To minimize our loss, we must move in the opposite direction—the direction of steepest descent , that is the negative gradient.
+----------------------------------------------------------------------------------------------
+7. But how large of a step do we take? This is controlled by a critical hyperparameter: the Learning Rate. The learning rate, often a small number like 0.01, is a scalar that scales the gradient. The update we apply to w1 is the negative gradient multiplied by this learning rate.
+
+This is a critical balance. A learning rate that is too large will cause the updates to be too aggressive, potentially 'overshooting' the minimum and causing the loss to diverge. A learning rate that is too small will result in very slow convergence, requiring far more epochs to reach the minimum.
+---------------------------------------------------------------------------------------------
+8. So, we compute the gradient, scale it by the learning rate, and update the weight. We are now at a new point on the curve with a lower loss. This process is repeated iteratively until we converge at or near the minimum, where the gradient is zero.
+
+Okay, so we need to calculate the gradient of the loss with respect to every single weight in a deep network. This is computationally complex. This is solved by Backpropagation.
+----------------------------------------------------------------------------------------------
+9. Backpropagation is simply the algorithm we use to efficiently compute these gradients. After the forward pass and loss calculation, the algorithm goes backwards through the network, starting from the output layer.
+
+Using the chain rule from calculus, it calculates the gradient of the loss with respect to the weights in the final layer. Then, it 'propagates' this gradient backwards to the next layer, calculating the gradient for those weights, and so on. It repeats this, layer by layer, until it has computed the gradient for every weight and bias in the entire network.
+----------------------------------------------------------------------------------------------
+10. This cycle of Forward Pass, Loss Computation, and Backpropagation with Gradient Descent is repeated for every batch of data, for every epoch, until the loss is minimized and the model's predictions are accurate.
+
+And this brings us back to our big cliffhanger. Why was that 'hard step' threshold function a problem?
+
+The entire process of gradient descent and backpropagation is contingent on one thing: calculating the gradient. For this, the activation function must be differentiable. 
+-------------------------------------------------------------------------------------------------
+11. Lets look at our threshold function. What is its derivative? On the flat sections, the derivative is zero. At the vertical jump, the derivative is undefined. If the model calculates the gradient, it gets a  zero. Which incorrectly signals that the current value is the minimum. Or, it gets an undefined value, which breaks the math. You cannot perform gradient descent with this function.
+
+----------------------------------------------------------------------------------------------
+12. Now, lets look at other options for activation functions. Starting with ReLU. It stands for rectified linear unit. It is a popular choice for regression. If the weighted sum z is less than or equal to 0, the ReLU output is zero, and if it is greater than zero, it is equal z. It looks simple, but is very powerful when modelling complex problems. We will put it to use shortly. Another example is a sigmoid function. Recall that we used it in classification using logistic regression. This is common choice for classification tasks.
+
+Both of these functions have a continuous, defined curve. At any point, you can find the exact derivative. It always provides a useful, non-zero gradient that can be used to update the weights. The model can always determine the direction of steepest descent.
+---------------------------------------------------------------------
+13. So, that is what happens inside the .fit() method!
+
+Weights are initialized.
+In each epoch, forward pass is performed to generate prediction. Loss function computes the error. Backpropagation is used to compute the gradient of the loss with respect to every weight. And gradient descent is used to update all the weights in the direction that minimizes the loss. This process is repeated until the loss converges!
+
+That's it for this video. Thanks for watching, and I'll see you in the next one.
+
+
+

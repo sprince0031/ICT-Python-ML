@@ -1,0 +1,61 @@
+1. Hello and welcome back to Python and Machine Learning Foundations.
+
+In our previous videos, we explored classical machine learning algorithms. Today, we will explore the building block of artificial neural networks: the Perceptron, and see how stacking them into a multiple layers allows us to solve complex problems.
+--------------------------------------------------------------
+2. The Perceptron was introduced in the 1950s. It is a simple mathematical model inspired by a biological neuron. A neuron takes multiple input signals, processes them, and fires an output signal. The perceptron works similar to this. Lets take a look at the math. First, it calculates a weighted sum. It takes all its inputs, multiplies them by their specific weights and adds a bias. The weights represent the importance of each input. The bias helps shift the decision boundary, making the model more flexible.
+
+Now, there is an alternative way to represent this, which you will see very often. Instead of treating the bias as a separate special value, we can think of it as just another weight. To do this, we use a special bias neuron. This is just an extra input, lets call it x0, that always has a value of +1. The bias b is simply the weight that is assigned to this unit.
+------------------------------------------------------------------
+3. Okay, so once we have our weighted sum z, it is passed through an activation function. The classic perceptron uses a simple threshold function. If z is greater than zero, the perceptron fires and outputs 1. If z is less than or equal to 0, it outputs 0.
+
+Because the perceptron makes its decision based on this simple weighted sum, it is a linear classifier. It can only solve problems that are linearly separable—meaning you can draw a single straight line to separate the '0' outputs from the '1' outputs.
+----------------------------------------------------------
+4. As an example of a linearly separable problem, let's look at the AND logic gate. It only outputs 1 if both inputs are 1. If we plot its four possible outcomes, we can easily draw a line to separate the single '1' from the three '0's.
+This perceptron architecture perfectly models logical AND. With w1 and w2 equal to 2, and bias = -3.
+when both x1 and x2 are zero, z = 0 .2 + 0 . 2 - 3, result is -3. when it passes through the activation function, the output is zero.
+Using the same calculations, when x1 is zero and x2 is 1, the output is 0.
+When x1 is 1 and x2 is zero, output is zero.
+But when both inputs are 1, z = 2 + 2 -3 = +1. hence the output is 1.
+-----------------------------------------------------------
+5. To model the logical OR operation, the weights are 2 and 2 and the bias is -1.
+So when the inputs are both zero, z = -1. output is zero.
+When x1 is 0 and x2 is 1, z = 0 + 2-1 = 1. result is 1
+Similarly, when x1 is 0 and x2 is 1, the output is 1.
+And when both inputs are 1, z is 2 + 2 -1 = 3, and output is 1.
+-----------------------------------------------------------------
+6. So far so good, now lets check out the XOR operation. XOR stands for 'Exclusive OR'. It outputs 1 only if the inputs are different. Here is the truth table for XOR:  (0,0) is 0, (0,1) is 1, (1,0) is 1, and (1,1) is 0.
+
+It is impossible to draw a single line across this plot which will separate the two classes. The problem is not linearly separable. A single perceptron fundamentally cannot solve XOR.
+-----------------------------------------------------------------
+7. The solution is to stack perceptrons in layers. This is the Multi-Layer Perceptron. An MLP has an Input Layer, one or more Hidden Layers, and an Output Layer. The 'hidden' layer refers to layers between the input and output layers. This is the key. The goal of the hidden layer is to take the impossible-to-solve XOR data and remap it into a new representation that is linearly separable for the final output neuron.
+
+Here is a classic MLP architecture that solves the XOR problem. It has two input neurons and a bias neuron in the first layer, which connect to two neurons in the hidden layer. These two neurons, and a bias neuron in this layer connect to one neuron in the final output layer. These are the weight and bias values for this architecture to solve the XOR problem. 
+-----------------------------------------------------------------
+8. Lets see this in action now.
+
+In h1, the weighted sum is 0 + 0 -1.5. so the output of this neuron is 0.
+
+And in h2, it is 0 + 0 -0.5, again, output is 0.
+
+In the final output neuron, weighted sum is 0(-1) + 0(1) -0.5 = -0.5. final output is 0.
+
+For the input (0,1),
+
+In h1, weighted sum is 0 + 1 -1.5 = -0.5. output is zero.
+In h2, weighted sum is 0 + 1 -0.5 = +0.5. output is 1.
+
+For the final neuron, weighted sum is 0.-1 + 1.1 -0.5 = +0.5. The output is 1.
+
+Similarly, for the input 0,1, the final output will be 1 and for (1,1) it will be 0.
+-----------------------------------------------------------------------------
+9. So, the hidden layer transformed our non-linear problem into a new, linearly separable one that the final neuron could easily solve.
+
+But this reveals a critical mathematical trap. We've been using a non-linear threshold function. What would happen if we didn't? What if we used a simple linear activation function instead? For example, what if the output was the weighted sum z itself?
+
+This is the key innovation of neural networks. If you stack layers and layers of linear neurons, the entire network just collapses mathematically. A 100-layer linear network is no more powerful than a single linear perceptron. It's just one big linear function, and it would still fail to solve XOR.
+------------------------------------------------------------------------------
+10. The magic of the MLP is not just the layers. It is the non-linear activation function, like our threshold function that sits between the layers. This non-linearity 'bends' and 'transforms' the data, breaking the linear collapse and allowing the hidden layers to create those powerful new representations we just saw.
+
+The problem is, the threshold function is impossible to train efficiently. To solve that, we need a smooth non-linear function, one that we can differentiate. And that is the key to modern deep learning and we are going to learn about it in the following lesson.
+
+That's it for this video. Thanks for watching, and I'll see you the next one!
