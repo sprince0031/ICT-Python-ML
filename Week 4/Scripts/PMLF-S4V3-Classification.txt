@@ -1,0 +1,153 @@
+Hello and welcome back to Python and Machine Learning Foundations! In the last video, we learned about Regression, where we predicted continuous values. Today, we will learn about Classification using three foundational algorithms: Decision Trees, Logistic Regression, and Support Vector Machines.
+
+We know that classification is a supervised learning task where the goal is to predict a discrete category or class label.
+
+So, how does a model learn to classify?
+
+Let's say we're trying to predict whether a patient has heart disease based on two features, like 'Age' and 'Max Heart Rate'.
+
+The red data points here have heart disease, and the blue dots don't have a heart disease.
+-----------------------------------------------------------
+A classification algorithm's job is to find the decision boundary: a line or a curve that best separates these two groups. Once it finds this boundary, making a new prediction is easy. When a new, unlabeled patient comes in, the model just plots their data and checks which side of the line it falls on to assign a class.
+
+The algorithms we're learning today are just different strategies for finding that perfect boundary.
+------------------------------------------------------------
+First up is one of the most intuitive algorithms: the Decision Tree.
+
+A Decision Tree algorithm makes decisions by asking a series of "if-then" questions, like a flowchart.
+
+It starts with all your data at the "root" node and asks a question, like "Is Age > 55?". This question splits the data into two "branches." It then asks another question on each branch, like "Is Max Heart Rate < 150?", splitting the data further. It continues this process until it has "leaf" nodes that are mostly or entirely one class.
+
+The algorithm's magic is in how it chooses the best question to ask at each step. it picks the question that does the best job, creating the cleanest possible splits.
+
+Decision Trees are clearly interpretable as you can literally look at the flowchart. But they can be prone to overfitting. That is, memorizing the training data instead of learning the general pattern.
+-----------------------------------------------------------------
+Alright, let's head over to Google Colab. Lets start by important some of the necessary packages.
+
+For this video, we'll use the Heart Disease Dataset from Kaggle. At the end, we will compare how different algorithms perform on the same problem.
+
+Like we've seen before, we are using the pandas DataFrame for our dataset, and the head() method shows the top five entries. So we have the columns age, sex,cp stands for chest pain type, trestbps is the resting blood pressure, cholesterol, and so on. Finally, we have the target column. This contains zeros and ones. One indicating heart disease and zero is for no heart disease.
+-----------------------------------------------------------------
+Now we need to separate our data into features that is the inputs and the target, which is the answer we want to predict.
+So X, our input dataframe is every column except the 'target' column so we are using the drop method with axis value 1.
+
+and y is just the target column.
+
+Then, we split our data into a training set and a testing set using the train_test_split method. We're setting test_size = 0.2 to hold back 20% of our data for testing. And we set random_state as 42 for reproducibility.
+
+Then to actually build our model, we start by importing it from sklearn.tree import DecisionTreeClassifier. 
+And to measure the accuracy score,
+from sklearn.metrics import accuracy_score
+
+Then we create an instance of the model, 
+lets call it tree_clf.
+Equal to DecisionTreeClassifier. setting max_depth = 3. This is a hyperparameter that stops the tree from growing too deep, which helps prevent overfitting. Then setting the random state to 42.
+------------------------------------------------------------
+
+Next comes the 'learning' step. We're telling our tree_clf blueprint to 'fit' itself to our training data to look at all the features in X_train and learn the patterns that lead to the answers in y_train.
+
+
+Now that the model is trained, we use tree_clf.predict(X_test). We give it our unseen X_test features and ask it to predict the answers. Finally, we use accuracy_score(y_test, predictions_dt) to compare the model's predictions to the actual answers to see how well it did. Here's the accuracy value.
+
+Here comes the best part of Decision Trees. We can visualize them.
+Lets import the plot_tree for that. from sklearn.tree import plot_tree
+
+The figure size is set to 20,10
+
+Using plot_tree, we can see the exact flowchart the model learned. We pass in our trained classifier, tree_clf, filled = True will fill in the boxes with colors. We also give it the feature_names = X.columns, and class_names as No Disease, Disease so the chart is readable.
+Let's run it now.
+
+How cool is that? We can literally read the logic. This interpretability is the superpower of Decision Trees.
+
+------------------------------------------
+
+Next up is Logistic Regression. Now, don't let the name 'regression' fool you; it is a classification algorithm.
+
+For this, we have the input X as a vector, each value is a value from different columns of the dataset. 
+We have something called a weight matrix as well. This is going to help our model make decisions. It is similar to the wight you multiply with your input x in linear regression, only here we have multiple input values. Since these are two column vectors, we find the weighted sum by multiplying W transpose with X. This will give us one value which is equal to w0 x0 plus w1 x1 plus w2 x2 and so on till wn xn. 
+This result is then passed through a special function called the sigmoid function. 
+
+This S-shaped function squashes any input value into an output between 0 and 1. We can interpret this output as a probability. For example, it might output 0.85, meaning it's 85% sure this patient has heart disease. We then set a threshold, which is usually 0.5, to make our final decision. It's simple, fast, and gives you probabilities, making it an excellent baseline model.
+---------------------------------------------------
+Okay, back in Colab. Before before we build our model, there's one crucial pre-processing step. Using the describe() method shows us the minimum and maximum values in each column.
+
+Logistic Regression is sensitive to the scale of your features. Right now, the age feature ranges from 29-77, which is very different from cholesterol that is between 126 and 564. StandardScaler fixes this by putting all features on a similar scale. from sklearn.preprocessing import StandardScaler, then for the model, from sklearn.linear_model import LogisticRegression.
+
+First, we create the scaler object. scaler = StandardScaler()
+To scale the input data, X_train_scaled = scaler.fit_transform(X_train)
+This fits the scaler by making it learn the mean and standard deviation of the training data and then transforms it.
+
+Next we scale the test data
+X_test_scaled = scaler.transform(X_test)
+Note that here we only use .transform(). This is critical. We don't want to 'fit' or learn from our test data. That will cause data leakage. In simple words, that's cheating! So we must apply the exact same scaling that we learned from the training set.
+_____________________________________________________________
+
+Now we can build the model, and it's going to look very familiar.
+
+We initialize the model 
+
+See? The pattern is the same. We initialize the model—I'm adding max_iter=1000 just to give it enough time to find the best solution. We .fit() the model, but this time on our new X_train_scaled data. And we .predict() using our X_test_scaled data. We check the accuracy... and look at that, it's even higher than our simple decision tree!
+
+A cool bonus with Logistic Regression is .predict_proba(). Instead of just guessing 0 or 1, it gives us the probability for each class. You can see here it's very confident—93% sure—that the first patient does not have heart disease.
+
+------------------------------------------------
+
+Our final algorithm for today is the Support Vector Machine, or SVM. 
+
+This one is a bit more mathematically complex, but the core idea is very elegant. Remember our decision boundary? A Decision Tree chops up the space, and Logistic Regression finds a good probabilistic line.
+
+An SVM, on the other hand, tries to find the single best boundary.
+
+What does "best" mean? An SVM defines the best boundary as the one that creates the largest possible margin or "street" between the two classes.
+
+The model is "supported" by these closest data points. The ones the margin bumps up against. These are called the Support Vectors. They are the most important data points because they alone define the position and angle of the decision boundary.
+
+And what if the data can't be separated by a straight line? That's where SVMs get really powerful. They use a concept called the kernel trick. We don't need to know the complex math, just what it does: It cleverly projects our data into a higher dimension (like from 2D to 3D) where it can be separated by a simple plane, and then it projects that boundary back down.
+
+Back to Colab. SVMs, just like Logistic Regression, perform best when your features are scaled. Good news is we already created our X_train_scaled and X_test_scaled data, so we can use them directly.
+
+First, let's import our model.
+
+We're importing SVC, which stands for Support Vector Classifier.
+
+We create an instance of our model, svm_clf = SVC(kernel = 'linear', random_state=42)
+
+The most important hyperparameter here is the kernel. We're setting kernel="linear" to tell the SVM to find a straight-line boundary, just like in our animation. If we had more complex data, we could use a different kernel, like 'rbf', to find a complex, curvy boundary.
+
+To train the model, we do svm_clf.fit(X_train_scaled, y_train)
+
+Lets make the predictions using this model now.
+predictions_svm = svm_clf.predict(X_test_scaled)
+
+And print the accuracy score. And look at that! On this dataset, the accuracy is right up there with our Logistic Regression model, and again, better than our simple Decision Tree.
+
+--------------------------------------------------------
+
+And that's a wrap on out introduction to Classification!
+Lets quickly review. In this video, we learned how to build three different classification models:
+Decision trees are intuitive, flowchart-like models that are highly interpretable. But they can be prone to overfitting.
+
+Logistic Regression is a fast, simple and reliable baseline model that finds the optimal decision boundary by maximizing the margin.
+
+
+Based on their performance on the heart disease dataset we used, which one do you think is the best?
+-----------------------------------------------------------
+This brings up a key concept in machine learning: the No Free Lunch Theorem. This theorem essentially states that there is no single 'best' algorithm that works for every problem.
+
+An SVM might be a superstar on one dataset, while a well-tuned Decision Tree is better on another. That's why it's so important to understand how each algorithm works, so you can test, compare, and choose the right tool for your specific job.
+
+-------------------------------------------------------
+
+Alright, now it's your turn to build a model from scratch. Your challenge is to apply what we've learned to the diabetes dataset provided in the details
+The goal is to predict whether a patient has diabetes or not based on medical features.
+
+Your challenge is to build a LogisticRegression model and find its accuracy.
+
+Good luck with the task!
+
+That's it for this video, I'll see you in the next one.
+------------------------------------------------------
+
+
+
+
