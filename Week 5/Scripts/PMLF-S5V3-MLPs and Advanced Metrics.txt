@@ -1,0 +1,10 @@
+Hello and welcome back to Python and Machine Learning Foundations. In the last video, we learned the theory of how a neural network trains and the different steps involved in it.
+
+Today, we're going to build two practical models from scratch using scikit-learn. An MLP Regressor to predict a continuous value, and an MLP Classifier to predict a class. And with our classifier, we will uncover one of the most common traps in machine learning and why 'accuracy' can be misleading sometimes.
+
+First, let's build a regressor. It predicts continuous values like the price of a house or the temperature tomorrow. We will use the classic California Housing dataset already included in google colab.
+
+Let's start by importing all the libraries we'll need for this video.
+
+Great, now lets load our housing data, split it into features X and our target y and then create our training and testing sets.
+
