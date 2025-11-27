@@ -1,0 +1,112 @@
+1. Hello and welcome back to Python and Machine Learning Foundations. In the previous video, we learned how neural networks train and the multiple steps involved in it.
+Today, we put it all into place. We are going to build two MLP models using Scikit-learn: an MLP Regressor to predict house prices, and an MLP Classifier to predict a medical condition. And with our classifier, we will uncover one of the most common traps in machine learning and why 'accuracy' can be a very misleading number.
+----------------------------------------------------------------------
+2. Lets start with regression. The job of a regressor is to predict a continuous number. We will use the California housing data available in google colab.
+
+Let's start by importing all the libraries we'll need for this video.
+
+Great. Now, lets load our training and testing data directly from the colab sample folder using pandas. These are already split into two files.
+
+The target variable we want to predict is median_house_value. Let's separate our features (X) from our target (y) for both sets. As a good practice, we'll also scale the target variable to be in 'thousands of dollars' instead of dollars. This makes the loss values easier to interpret.
+
+In the next step we are scaling the input features using standard scaler.
+------------------------------------------------------------
+3. Alright, now with dataset preparation done, we can build and train our MLPRegressor. 
+Lets import it.
+from sklearn.neural_network import MLPRegressor
+
+Let us initialize our mlp. MLPRegressor with hidden_layer_size = (50,50,50). This means we are giving it three hidden layers with 50 neurons each. For activation, we will use 'relu'. We'll also set max_iter to 500 to give it enough epochs to learn.
+then set random state as 42.
+
+then we fit the model on X_train_scaled and y_train
+
+Lets run it. 
+--------------------------------------------------------------------------
+4. Our model is trained. Now we can use it to make predictions on the test set and evaluate its performance 
+first, the mse value. mean_squared_error (y_test, y_pred).
+
+And to find the R squared, we use r2_score(y_test, y_pred)
+
+Of our two metrics, we've already seen how Mean Squared Error works and obviously, lower MSE is better.
+------------------------------------------
+5. The R-squared score is even more intuitive. Lets see what it is. It's a value between 0 and 1 that tells us what percentage of the variation in the house prices our model was able to explain. An R-squared of 0 means our model is no better than just guessing the average price. An R-squared of 1 would mean our model explains all the variation perfectly.
+
+Lets go back to the notebook now. We got an R-squared of about 0.77. This means our model was able to explain about 77% of the variation in the housing prices, which is a pretty decent result.
+
+---------------------------------------------------------------
+6. Now for the next part, we have classification. 
+
+But we're going to add a realistic twist. Most real-world datasets are not balanced. In medical diagnosis, 99% of patients might be healthy, and only 1% have a disease. In fraud detection, 99.9% of transactions are legitimate.
+
+Lets simulate this on colab. we'll create a synthetic medical dataset using make_classification. We'll make a dataset of 2,000 "patients," where 90% are 'Healthy' (Class 0) and only 10% are 'Sick' (Class 1).
+
+As you can see, we have 1793 healthy samples and only 207 sick samples. This is an imbalanced dataset. Let's see how our model handles this.
+
+Just like before, we'll split our data, and we must scale it using standard scaler.
+------------------------------------------------------
+7. Now, we'll train an MLPClassifier. 
+from sklearn.neural_network import MLPClassifier
+
+Then we initialize the model. MLP Classifier with hidden_layer = 30, 30 , activation = logistic, max iter = 500, and random state is set to 42
+
+The process is identical to the regressor, except here we use logistic for activation. You can also use relu if you want. 
+
+Then we fit it to the training set and run the block
+
+Okay, our classifier is trained. Let's make predictions and check the accuracy.
+
+Wow, an accuracy of 0.9575... almost 96%! That sounds fantastic, right? We must have built a great model! ...Or did we? Let's not celebrate just yet.
+-----------------------------------------------
+8. Accuracy just tells us the total percentage of correct guesses. But think about our data: it's 90% 'Healthy'. A lazy model could just guess 'Healthy' every single time and it would be 90% accurate right out of the box! Is our 96% model any better than that? We need to dig deeper.
+
+To really understand our model's performance, we need to look at the Confusion Matrix.
+
+A confusion matrix is a table that shows us where our model made mistakes. It breaks down all our predictions into four categories. Let's generate one for our model using seaborn.
+------------------------------------------------
+9.
+start by initializing the confusion matrix 
+cm = confusion_matrix(y_c_test, y_c_pred)
+
+then we set the figure size 
+
+we are plotting it using sns.heatmap. Lets run it now
+
+Okay, let's read this. The Y-axis is the 'Actual' truth, and the X-axis is what our model 'Predicted'.
+
+True negatives are in the top left. We predicted 'Healthy' 357 times, and the patient was Healthy. That's great.
+
+In the bottom right, we have true positives. We predicted 'Sick' 26 times, and the patient was Sick. Also great.
+-------------------------------------------------
+10. Now see the top right for false positives. We predicted 'Sick' 10 times, but the patient was Healthy. This is an error. We might cause a patient to panic or undergo unnecessary tests.
+
+Check the bottom left now, these are the false negatives. We predicted 'Healthy' 7 times, but the patient was Sick. This is the most dangerous error. We just told 7 sick people that they are perfectly healthy and sent them home.
+
+This matrix gives us so much more context than a simple accuracy score. These four numbers are what we use to calculate more advanced metrics.
+
+Which brings us to the Classification Report.
+----------------------------------------------------
+11. This report is the true story of our model. Let's break it down, focusing on our minority class, 'Sick'. This is the class we care most about.
+
+Look at the 'Sick' row. The precision is 0.72. What does this mean? The formula is True Positives / (True Positives + False Positives). In our case, 26 / (26 + 10) = 0.72
+Precision asks: Of all the times our model predicted 'Sick', what percentage was correct? Our model was correct 72% of the time. The other 28% were False Positives.
+---------------------------------------------------
+12. Moving on to recall, which is more important for us. The recall for 'Sick' is 0.79. The formula is True Positives / (True Positives + False Negatives). In our case, 26 / (26 + 7) = 0.79. Recall asks: Of all the patients who were actually sick, what percentage did our model find? Our model only found 79% of them! It missed 21% of all sick patients: those 7 False Negatives. This is a failing model, and the 96% accuracy score completely hid this fact!
+
+Now, we have the F1 score. This is just the harmonic mean of Precision and Recall. It's a single, balanced metric that's useful when you care about both False Positives and False Negatives. At 0.75, it's a much more honest reflection of our model's performance than the 96% accuracy.
+------------------------------------------------
+13. So, to recap what we learned today: We built a complete MLPRegressor and learned that R-squared measures the percentage of variation our model can explain. More importantly, we built an MLPClassifier on an imbalanced dataset and learned that Accuracy can be dangerously misleading. We must use the Confusion Matrix and the Classification Report, especially Recall and Precision, to understand our model's true performance.
+------------------------------------------
+14. Now, it's your turn to put this into practice on Kaggle, a platform for datasets and data science competitions.
+
+Your first task is a regression problem: the 'House Prices - Advanced Regression Techniques' competition. Your goal is to build an MLPRegressor to predict the SalePrice. This dataset has many different features, so you'll need to do careful preprocessing and scaling. Tune your network's layers and learning rate, submit your predictions to Kaggle, and see how you rank on the leaderboard!
+
+Your second task is a popular classification problem: 'Titanic - Machine Learning from Disaster'. Your goal is to build an MLPClassifier to predict who Survived. This also requires careful feature engineering. As you analyze your results, think: is your main goal high accuracy, or is it high Recall—making sure you find every single person who actually survived?
+----------------------------------------------------
+15. These challenges will give you fantastic, real-world practice. 
+
+That's it for this video. Thanks for watching, and I'll see you in the next one.
+
+
+
+
+
